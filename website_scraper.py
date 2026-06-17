@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import json
+import time
 
 url = "http://books.toscrape.com/"
 
@@ -31,6 +32,7 @@ while True:
         next_page_url = next_page.a['href']
         url = url.rsplit('/', 1)[0] + '/' + next_page_url
         response = requests.get(url)
+        time.sleep(0.5) # Add a delay of 0.5 seconds before making the next request to avoid overwhelming the server
         soup = BeautifulSoup(response.text, 'html.parser')
     else:
         break # if there is no next page, break the loop
